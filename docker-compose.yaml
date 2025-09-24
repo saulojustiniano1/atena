@@ -7,32 +7,31 @@ services:
     environment:
       POSTGRES_DB: atena_db
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postadmin
+      POSTGRES_PASSWORD: admin
     ports:
-      - '5434:5432'
+      - '5435:5432'
     networks:
       - atena_net
 
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: atena_web
-    command: gunicorn setup.wsgi:application --bind 0.0.0.0:8334
-    volumes:
-      - .:/app
-    ports:
-      - '8334:8334'
-    env_file:
-      - .env
-    depends_on:
-      - db
-    networks:
-      - atena_net
+  # web:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: atena_web
+  #   command: gunicorn setup.wsgi:application --bind 0.0.0.0:8334
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - '8334:8334'
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - atena_net
 
 volumes:
   postgres_data:
-  ollama_data:
 
 networks:
   atena_net:
