@@ -21,13 +21,13 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    "rest_framework", 
+    "rest_framework",
     "rest_framework_simplejwt",
 ]
 
 MY_APPS = []
 
-INSTALLED_APPS = DJANGO_APPS +THIRD_PARTY_APPS + MY_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
