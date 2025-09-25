@@ -25,7 +25,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
 ]
 
-MY_APPS = []
+MY_APPS = ["academico.apps.AcademicoConfig"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 

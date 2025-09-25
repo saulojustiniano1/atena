@@ -1,3 +1,7 @@
+#git/github
+.github
+.github/*
+
 # Django #
 *.log
 *.pot
