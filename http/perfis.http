@@ -1,0 +1,32 @@
+GET http://localhost:8000/api/perfis/
+
+###
+
+GET http://localhost:8000/api/perfis/8540cb2c-2dfe-4989-a103-1d54d9d27aab/
+
+###
+
+POST http://localhost:8000/api/perfis/
+Content-Type: application/json
+
+{
+  "codigo": "2",
+  "nome": "site",
+  "tipo": "ALUNO",
+  "email": "site@gmail.com",
+  "senha": "123456789",
+  "ativo": true
+}
+
+###
+
+PUT http://localhost:8000/api/perfis/3b8dee74-aa42-4e86-b9e7-b271b83ad5df/
+Content-Type: application/json
+
+{
+  "nome": "Elias",
+  "tipo": "ALUNO",
+  "email": "elias@gmail.com",
+  "senha": "123456789",
+  "ativo": false
+}
