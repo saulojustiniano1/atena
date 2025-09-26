@@ -25,14 +25,22 @@ class CursoViewSet(viewsets.ModelViewSet):
 
         return qs
 
-    @action(detail=True, methods=["patch"], url_path="inativar")
+    @action(
+        detail=True,
+        url_path="inativar",
+        methods=["patch"],
+    )
     def inativar(self, request, pk=None):
         curso = self.get_object()
         curso.ativo = False
         curso.save()
         return Response({"status": "curso inativado"})
 
-    @action(detail=True, methods=["patch"], url_path="ativar")
+    @action(
+        detail=True,
+        url_path="ativar",
+        methods=["patch"],
+    )
     def ativar(self, request, pk=None):
         curso = self.get_object()
         curso.ativo = True
