@@ -28,7 +28,11 @@
   </div>
   
   <button type="submit" class="btn btn-success">
-    {{ curso.id|default:"Criar" }} Curso
+    {% if curso %}
+      Editar Curso
+    {% else %}
+      Criar Curso
+    {% endif %}
   </button>
 </form>
 

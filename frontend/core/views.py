@@ -16,10 +16,7 @@ def login_view(request):
 
         resp = requests.post(
             f"{API_URL_TOKEN}/auth/token/",
-            data={
-                "username": username,
-                "password": password,
-            },
+            data={"username": username, "password": password},
         )
 
         if resp.status_code == 200:
@@ -28,7 +25,6 @@ def login_view(request):
             request.session["refresh"] = tokens["refresh"]
             return redirect("dashboard")
         else:
-            print(resp)
             messages.error(request, "Usuário ou senha inválidos.")
 
     return render(request, "core/login.html")
@@ -40,8 +36,13 @@ def logout_view(request):
 
 
 def dashboard_view(request):
+    # Checa se o usuário está autenticado
     access = request.session.get("access")
-    headers = {"Authorization": f"Bearer {access}"} if access else {}
+    if not access:
+        messages.warning(request, "Você precisa estar logado para acessar o dashboard.")
+        return redirect("login")  # redireciona para /login
+
+    headers = {"Authorization": f"Bearer {access}"}
 
     cursos = []
     disciplinas = []
