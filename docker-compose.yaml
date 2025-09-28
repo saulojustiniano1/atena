@@ -1,15 +1,15 @@
 services:
   db:
     image: postgres:16
-    container_name: atena_db
+    container_name: ${DB_CONTAINER_NAME:-atena_db}
     environment:
-      POSTGRES_DB: atena_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: ${POSTGRES_DB:-atena_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
-      - '5432:5432'
+      - '${DB_PORT:-5432}:5432'
     networks:
       - atena_net
 
@@ -17,42 +17,42 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
-    container_name: atena_api
+    container_name: ${API_CONTAINER_NAME:-atena_api}
     env_file:
       - ./api/.env
     volumes:
       - ./api:/app
     ports:
-      - '8001:8001'
+      - '${API_PORT:-8001}:8001'
     depends_on:
       - db
     networks:
       - atena_net
     environment:
-      DATABASE_HOST: db
-      DATABASE_NAME: atena_db
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: admin
-      DATABASE_PORT: 5432
+      DATABASE_HOST: ${DATABASE_HOST:-db}
+      DATABASE_NAME: ${DATABASE_NAME:-atena_db}
+      DATABASE_USER: ${DATABASE_USER:-postgres}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-admin}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: atena_frontend
+    container_name: ${FRONTEND_CONTAINER_NAME:-atena_frontend}
     env_file:
       - ./frontend/.env
     volumes:
       - ./frontend:/app
     ports:
-      - '8000:8000'
+      - '${FRONTEND_PORT:-8000}:8000'
     depends_on:
       - api
     networks:
       - atena_net
     environment:
-      API_URL: http://api:8001/api
-      API_URL_TOKEN: http://api:8001
+      API_URL: ${API_URL:-http://api:8001/api}
+      API_URL_TOKEN: ${API_URL_TOKEN:-http://api:8001}
 
 volumes:
   postgres_data:
