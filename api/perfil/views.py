@@ -10,7 +10,6 @@ class PerfilViewSet(viewsets.ModelViewSet):
     queryset = Perfil.objects.all()
     serializer_class = PerfilSerializer
 
-    # Filtros via query params: ?ativo=true&codigo=...&search=...
     def get_queryset(self):
         qs = super().get_queryset()
         ativo = self.request.query_params.get("ativo")
@@ -26,7 +25,6 @@ class PerfilViewSet(viewsets.ModelViewSet):
 
         return qs
 
-    # PATCH /perfis/{id}/inativar/
     @action(detail=True, methods=["patch"], url_path="inativar")
     def inativar(self, request, pk=None):
         perfil = self.get_object()
@@ -34,7 +32,6 @@ class PerfilViewSet(viewsets.ModelViewSet):
         perfil.save()
         return Response({"status": "perfil inativado"})
 
-    # PATCH /perfis/{id}/ativar/
     @action(detail=True, methods=["patch"], url_path="ativar")
     def ativar(self, request, pk=None):
         perfil = self.get_object()
