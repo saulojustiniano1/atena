@@ -50,6 +50,12 @@ git clone <URL_DO_REPOSITORIO>
 cd atena
 ```
 
+**--------- Env --------------**
+
+```bash
+cp .env.example .env
+```
+
 ### 2. Executar com Docker Compose
 
 ```bash
