@@ -1,12 +1,15 @@
 from pathlib import Path
 
+from decouple import Csv, config
+from dj_database_url import config as db_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-plw=j329g21h@723nmb81v(=(6z0@z3@!!jj7+qic!0_uj48nv"
+SECRET_KEY = config("WEB_SECRET_KEY")
+DEBUG = config("DEBUG", cast=bool, default=False)
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("WEB_ALLOWED_HOSTS", cast=Csv())
+CSRF_TRUSTED_ORIGINS = config("WEB_CSRF_TRUSTED_ORIGINS", cast=Csv())
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -55,20 +58,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "setup.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -85,28 +80,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LANGUAGE_CODE = config("LANGUAGE_CODE")
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
+TIME_ZONE = config("TIMEZONE")
 
 USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 LOGIN_URL = "/login/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

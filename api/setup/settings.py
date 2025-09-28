@@ -6,11 +6,11 @@ from dj_database_url import config as db_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("APP_SECRET_KEY")
-DEBUG = config("APP_DEBUG", cast=bool, default=False)
+SECRET_KEY = config("API_SECRET_KEY")
+DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = config("APP_ALLOWED_HOSTS", cast=Csv())
-CSRF_TRUSTED_ORIGINS = config("APP_CSRF_TRUSTED_ORIGINS", cast=Csv())
+ALLOWED_HOSTS = config("API_ALLOWED_HOSTS", cast=Csv())
+CSRF_TRUSTED_ORIGINS = config("API_CSRF_TRUSTED_ORIGINS", cast=Csv())
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -74,7 +74,7 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # Banco de Produção - PostgreSQL
 DATABASES = {
     "default": db_url(
-        default=config("APP_DATABASE_URL"),
+        default=config("API_DATABASE_URL"),
     )
 }
 
@@ -93,9 +93,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = config("APP_LANGUAGE_CODE")
+LANGUAGE_CODE = config("LANGUAGE_CODE")
 
-TIME_ZONE = config("APP_TIMEZONE")
+TIME_ZONE = config("TIMEZONE")
 
 USE_I18N = True
 
