@@ -1,0 +1,34 @@
+{% extends "core/base.html" %} 
+{% block title %}Disciplinas{% endblock %} 
+{% block content %}
+<h2>Disciplinas</h2>
+<a href="{% url 'disciplina_novo' %}" class="btn btn-primary mb-3"
+  >Nova Disciplinas</a
+>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Código</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in disciplinas %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.nome }}</td>
+      <td>{{ p.codigo }}</td>
+      <td>{% if p.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+      <td>
+        <a href="{% url 'disciplina_editar' p.id %}" class="btn btn-sm btn-warning">
+          Editar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

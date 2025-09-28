@@ -1,0 +1,51 @@
+{% extends "core/base.html" %} 
+{% block title %}{{ disciplina.id|default:"Nova" }} Disciplina{% endblock %} 
+
+{% block content %}
+<h2>{{ disciplina.id|default:"Nova" }} Disciplina</h2>
+
+<form method="post">
+  {% csrf_token %}
+  
+  <div class="mb-3">
+    <label>Código</label>
+    <input type="text" name="codigo" class="form-control" 
+           value="{{ disciplina.codigo|default:'' }}" required />
+  </div>
+  
+  <div class="mb-3">
+    <label>Nome</label>
+    <input type="text" name="nome" class="form-control" 
+           value="{{ disciplina.nome|default:'' }}" required />
+  </div>
+  
+  <div class="mb-3">
+    <label>Carga Horária</label>
+    <input type="number" name="carga_horaria" class="form-control" min="0" step="1"
+           value="{{ disciplina.carga_horaria|default:0 }}" required />
+  </div>
+  
+  <div class="mb-3">
+    <label for="curso">Curso:</label>
+    <select id="curso" name="curso" class="form-control" required>
+        <option value="">Selecione um curso</option>
+        {% for curso in cursos %}
+            <option value="{{ curso.id }}" 
+                {% if disciplina.curso == curso.id %}selected{% endif %}>
+                {{ curso.nome }}
+            </option>
+        {% endfor %}
+    </select>
+  </div>
+  
+  <div class="mb-3">
+    <label for="ativo">Ativo:</label>
+    <input type="checkbox" id="ativo" name="ativo" value="true" 
+           {% if disciplina.ativo %}checked{% endif %}>
+  </div>
+  
+  <button type="submit" class="btn btn-success">
+    {{ disciplina.id|default:"Criar" }} Disciplina
+  </button>
+</form>
+{% endblock %}
