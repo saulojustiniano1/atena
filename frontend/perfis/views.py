@@ -1,8 +1,10 @@
+import os
+
 import requests
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-API_URL = "http://localhost:8001/api"
+API_URL = os.getenv("API_URL", "http://api:8001/api")
 
 
 def lista_perfis(request):

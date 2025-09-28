@@ -1,8 +1,10 @@
+import os
+
 import requests
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
-API_URL = "http://localhost:8001/api"
+API_URL = os.getenv("API_URL", "http://api:8001/api")
 
 
 def lista_cursos(request):
@@ -87,3 +89,23 @@ def editar_curso(request, curso_id):
             )
 
     return render(request, "cursos/form.html", {"curso": curso})
+
+
+def deletar_curso(request, curso_id):
+    access_token = request.session.get("access")
+    headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
+
+    if request.method == "POST":
+        try:
+            resp = requests.delete(
+                f"{API_URL}/cursos/{curso_id}/", headers=headers, timeout=5
+            )
+            resp.raise_for_status()
+            messages.success(request, "Curso excluído com sucesso!")
+        except requests.RequestException as e:
+            messages.error(
+                request,
+                f"Erro ao excluir curso: {e}\n{resp.text if 'resp' in locals() else ''}",
+            )
+
+    return redirect("cursos_lista")
