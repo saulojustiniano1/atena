@@ -1,38 +1,63 @@
-{% extends "core/base.html" %}
-{% block title %}{{ curso.id|default:"Novo" }} Curso{% endblock %}
-
+{% extends "core/base.html" %} 
+{% block title %}{{ curso.id|default:"Novo" }}Curso{% endblock %}
 {% block content %}
-<h2>{{ curso.id|default:"Novo" }} Curso</h2>
 
+<h2>{{ curso.id|default:"Novo" }} Curso</h2>
 <form method="post">
   {% csrf_token %}
-  
+
   <div class="mb-3">
     <label>Código</label>
-    <input type="text" name="codigo" class="form-control" value="{{ curso.codigo|default:'' }}" required>
+    <input
+      type="text"
+      name="codigo"
+      class="form-control"
+      value="{{ curso.codigo|default:'' }}"
+      required
+    />
   </div>
-  
+
   <div class="mb-3">
     <label>Nome</label>
-    <input type="text" name="nome" class="form-control" value="{{ curso.nome|default:'' }}" required>
+    <input
+      type="text"
+      name="nome"
+      class="form-control"
+      value="{{ curso.nome|default:'' }}"
+      required
+    />
   </div>
-  
+
   <div class="mb-3">
     <label>Carga Horária Total</label>
-    <input type="number" name="carga_horaria_total" class="form-control" min="0" step="1" value="{{ curso.carga_horaria_total|default:0 }}" required>
+    <input
+      type="number"
+      name="carga_horaria_total"
+      class="form-control"
+      min="0"
+      step="1"
+      value="{{ curso.carga_horaria_total|default:0 }}"
+      required
+    />
   </div>
-  
+
   <div class="mb-3">
     <label>Ativo</label>
-    <input type="checkbox" name="ativo" value="true" {% if curso.ativo %}checked{% endif %}>
+    <input
+      type="checkbox"
+      name="ativo"
+      value="true"
+      {%
+      if
+      curso.ativo
+      %}checked{%
+      endif
+      %}
+    />
   </div>
-  
+
   <button type="submit" class="btn btn-success">
-    {% if curso %}
-      Editar Curso
-    {% else %}
-      Criar Curso
-    {% endif %}
+    {% if curso %} Editar Curso {% else %} Criar Curso {% endif %}
   </button>
 </form>
 

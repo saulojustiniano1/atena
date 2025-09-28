@@ -10,4 +10,9 @@ urlpatterns = [
         views.editar_disciplina,
         name="disciplina_editar",
     ),
+    path(
+        "<uuid:disciplina_id>/deletar/",
+        views.deletar_disciplina,
+        name="disciplina_deletar",
+    ),
 ]

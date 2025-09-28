@@ -1,23 +1,35 @@
 {% extends "core/base.html" %}
-{% block title %}Novo Perfil{% endblock %}
+{% block title %}{% if perfil %}Editar{% else %}Novo{% endif %} Perfil{% endblock %}
 {% block content %}
-<h2>Novo Perfil</h2>
+<h2>{% if perfil %}Editar{% else %}Novo{% endif %} Perfil</h2>
 <form method="post">{% csrf_token %}
   <div class="mb-3">
     <label>Nome</label>
-    <input type="text" name="nome" class="form-control">
+    <input type="text" name="nome" class="form-control" value="{{ perfil.nome|default:'' }}" required>
   </div>
   <div class="mb-3">
-    <label>Código</label>
-    <input type="text" name="codigo" class="form-control">
+    <label>Email</label>
+    <input type="email" name="email" class="form-control" value="{{ perfil.email|default:'' }}" required>
+  </div>
+  <div class="mb-3">
+    <label>Senha</label>
+    <input type="password" name="senha" class="form-control" {% if not perfil %}required{% endif %}>
+    {% if perfil %}<small class="text-muted">Deixe em branco para não alterar a senha</small>{% endif %}
   </div>
   <div class="mb-3">
     <label>Tipo</label>
-    <select name="tipo" class="form-select">
-      <option value="gerente">Gerente</option>
-      <option value="aluno">Aluno</option>
+    <select name="tipo" class="form-select" required>
+      <option value="GERENTE" {% if perfil.tipo == 'GERENTE' %}selected{% endif %}>Gerente</option>
+      <option value="PROFESSOR" {% if perfil.tipo == 'PROFESSOR' %}selected{% endif %}>Professor</option>
+      <option value="ALUNO" {% if perfil.tipo == 'ALUNO' %}selected{% endif %}>Aluno</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-success">Salvar</button>
+  <div class="form-check mb-3">
+    <input type="checkbox" class="form-check-input" name="ativo" id="ativo" {% if perfil.ativo %}checked{% endif %}>
+    <label class="form-check-label" for="ativo">Ativo</label>
+  </div>
+  <button type="submit" class="btn btn-success">
+    {% if perfil %}Editar{% else %}Criar{% endif %}
+  </button>
 </form>
 {% endblock %}

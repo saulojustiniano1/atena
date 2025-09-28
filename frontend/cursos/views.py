@@ -98,19 +98,30 @@ def editar_curso(request, curso_id):
 @login_required_session
 def deletar_curso(request, curso_id):
     access_token = request.session.get("access")
-    headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
+    if not access_token:
+        messages.warning(request, "Você precisa estar logado para excluir um curso.")
+        return redirect("login")
+
+    headers = {"Authorization": f"Bearer {access_token}"}
 
     if request.method == "POST":
         try:
             resp = requests.delete(
                 f"{API_URL}/cursos/{curso_id}/", headers=headers, timeout=5
             )
-            resp.raise_for_status()
-            messages.success(request, "Curso excluído com sucesso!")
+            if resp.status_code in [204, 200]:
+                messages.success(request, "Curso excluído com sucesso!")
+            else:
+                messages.error(
+                    request,
+                    f"Erro ao excluir curso: {resp.status_code} - {resp.text}",
+                )
         except requests.RequestException as e:
             messages.error(
                 request,
-                f"Erro ao excluir curso: {e}\n{resp.text if 'resp' in locals() else ''}",
+                f"Não foi possível conectar à API para excluir o curso: {e}",
             )
+    else:
+        messages.warning(request, "Método inválido para excluir curso.")
 
     return redirect("cursos_lista")

@@ -1,9 +1,8 @@
 {% extends "core/base.html" %} 
-{% block title %}{{ disciplina.id|default:"Nova" }} Disciplina{% endblock %} 
-
+{% block title %}{{ disciplina.id|default:"Nova" }} Disciplina{% endblock %}
 {% block content %}
-<h2>{{ disciplina.id|default:"Nova" }} Disciplina</h2>
 
+<h2>{{ disciplina.id|default:"Nova" }} Disciplina</h2>
 <form method="post">
   {% csrf_token %}
   

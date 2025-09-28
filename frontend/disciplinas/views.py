@@ -122,3 +122,37 @@ def editar_disciplina(request, disciplina_id):
     return render(
         request, "disciplinas/form.html", {"disciplina": disciplina, "cursos": cursos}
     )
+
+
+@login_required_session
+def deletar_disciplina(request, disciplina_id):
+    access_token = request.session.get("access")
+    if not access_token:
+        messages.warning(
+            request, "Você precisa estar logado para excluir uma disciplina."
+        )
+        return redirect("login")
+
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    if request.method == "POST":
+        try:
+            resp = requests.delete(
+                f"{API_URL}/disciplinas/{disciplina_id}/", headers=headers, timeout=5
+            )
+            if resp.status_code in [204, 200]:
+                messages.success(request, "Disciplina excluída com sucesso!")
+            else:
+                messages.error(
+                    request,
+                    f"Erro ao excluir disciplina: {resp.status_code} - {resp.text}",
+                )
+        except requests.RequestException as e:
+            messages.error(
+                request,
+                f"Não foi possível conectar à API para excluir a disciplina: {e}",
+            )
+    else:
+        messages.warning(request, "Método inválido para excluir disciplina.")
+
+    return redirect("disciplinas_lista")

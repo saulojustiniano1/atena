@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -25,24 +25,22 @@ class CursoViewSet(viewsets.ModelViewSet):
 
         return qs
 
-    @action(
-        detail=True,
-        url_path="inativar",
-        methods=["patch"],
-    )
+    @action(detail=True, url_path="inativar", methods=["patch"])
     def inativar(self, request, pk=None):
         curso = self.get_object()
         curso.ativo = False
         curso.save()
         return Response({"status": "curso inativado"})
 
-    @action(
-        detail=True,
-        url_path="ativar",
-        methods=["patch"],
-    )
+    @action(detail=True, url_path="ativar", methods=["patch"])
     def ativar(self, request, pk=None):
         curso = self.get_object()
         curso.ativo = True
         curso.save()
         return Response({"status": "curso ativado"})
+
+    @action(detail=True, url_path="deletar", methods=["delete"])
+    def deletar(self, request, pk=None):
+        curso = self.get_object()
+        curso.delete()
+        return Response({"status": "curso deletado"}, status=status.HTTP_204_NO_CONTENT)

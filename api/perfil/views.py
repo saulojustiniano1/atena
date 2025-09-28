@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -38,3 +38,11 @@ class PerfilViewSet(viewsets.ModelViewSet):
         perfil.ativo = True
         perfil.save()
         return Response({"status": "perfil ativado"})
+
+    @action(detail=True, methods=["delete"], url_path="deletar")
+    def deletar(self, request, pk=None):
+        perfil = self.get_object()
+        perfil.delete()
+        return Response(
+            {"status": "perfil deletado"}, status=status.HTTP_204_NO_CONTENT
+        )

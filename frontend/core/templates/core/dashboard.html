@@ -1,9 +1,11 @@
-{% extends "core/base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% extends "core/base.html" %} 
+{% block title %}Dashboard{% endblock %} 
 {% block content %}
+
 <h2>Dashboard</h2>
 <div class="row">
-  <div class="col-md-6">
+  <!-- Cursos -->
+  <div class="col-md-4">
     <div class="card text-bg-primary mb-3">
       <div class="card-body">
         <h5 class="card-title">Cursos Ativos</h5>
@@ -12,14 +14,30 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+
+  <!-- Disciplinas -->
+  <div class="col-md-4">
     <div class="card text-bg-success mb-3">
       <div class="card-body">
         <h5 class="card-title">Disciplinas Ativas</h5>
         <p class="card-text fs-2">{{ disciplinas_count }}</p>
-        <a href="{% url 'disciplinas_lista' %}" class="btn btn-light">Ver disciplinas</a>
+        <a href="{% url 'disciplinas_lista' %}" class="btn btn-light"
+          >Ver disciplinas</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Perfis -->
+  <div class="col-md-4">
+    <div class="card text-bg-warning mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Perfis Ativos</h5>
+        <p class="card-text fs-2">{{ perfis_count }}</p>
+        <a href="{% url 'perfis_lista' %}" class="btn btn-light">Ver perfis</a>
       </div>
     </div>
   </div>
 </div>
+
 {% endblock %}

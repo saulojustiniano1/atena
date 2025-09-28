@@ -1,21 +1,40 @@
-{% extends "core/base.html" %}
-{% block title %}Perfis{% endblock %}
+{% extends "core/base.html" %} 
+{% block title %}Perfis{% endblock %} 
 {% block content %}
+
 <h2>Perfis</h2>
 <a href="{% url 'perfis_novo' %}" class="btn btn-primary mb-3">Novo Perfil</a>
 <table class="table table-striped">
   <thead>
-    <tr><th>ID</th><th>Nome</th><th>Código</th><th>Tipo</th><th>Status</th></tr>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Status</th>
+      <th>Ações</th>
+    </tr>
   </thead>
   <tbody>
     {% for p in perfis %}
-      <tr>
-        <td>{{ p.id }}</td>
-        <td>{{ p.nome }}</td>
-        <td>{{ p.codigo }}</td>
-        <td>{{ p.tipo }}</td>
-        <td>{% if p.ativo %}Ativo{% else %}Inativo{% endif %}</td>
-      </tr>
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.nome }}</td>
+      <td>{{ p.tipo }}</td>
+      <td>{% if p.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+      <td>
+        <a href="{% url 'perfil_editar' p.id %}" class="btn btn-sm btn-warning"
+          >Editar</a
+        >
+        <form
+          action="{% url 'perfil_deletar' p.id %}"
+          method="post"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+        </form>
+      </td>
+    </tr>
     {% endfor %}
   </tbody>
 </table>
