@@ -1,12 +1,14 @@
 import os
 
 import requests
+from core.decorators import login_required_session
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
 API_URL = os.getenv("API_URL", "http://api:8001/api")
 
 
+@login_required_session
 def lista_perfis(request):
     headers = {"Authorization": f"Bearer {request.session.get('access')}"}
     resp = requests.get(f"{API_URL}/perfis/", headers=headers)
@@ -14,6 +16,7 @@ def lista_perfis(request):
     return render(request, "perfis/lista.html", {"perfis": perfis})
 
 
+@login_required_session
 def criar_perfil(request):
     headers = {"Authorization": f"Bearer {request.session.get('access')}"}
     if request.method == "POST":

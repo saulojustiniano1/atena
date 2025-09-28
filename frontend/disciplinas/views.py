@@ -1,12 +1,14 @@
 import os
 
 import requests
+from core.decorators import login_required_session
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
 API_URL = os.getenv("API_URL", "http://api:8001/api")
 
 
+@login_required_session
 def lista_disciplinas(request):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
@@ -21,6 +23,7 @@ def lista_disciplinas(request):
     return render(request, "disciplinas/lista.html", {"disciplinas": disciplinas})
 
 
+@login_required_session
 def criar_disciplina(request):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
@@ -60,6 +63,7 @@ def criar_disciplina(request):
     return render(request, "disciplinas/form.html", {"cursos": cursos})
 
 
+@login_required_session
 def editar_disciplina(request, disciplina_id):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}

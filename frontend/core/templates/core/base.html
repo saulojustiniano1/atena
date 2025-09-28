@@ -11,9 +11,11 @@
         <a class="navbar-brand" href="{% url 'dashboard' %}">ATENA</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto">
+                {% if request.session.access %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'perfis_lista' %}">Perfis</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'cursos_lista' %}">Cursos</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'disciplinas_lista' %}">Disciplinas</a></li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ms-auto">
                 {% if request.session.access %}

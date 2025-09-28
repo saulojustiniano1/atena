@@ -1,12 +1,14 @@
 import os
 
 import requests
+from core.decorators import login_required_session
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
 API_URL = os.getenv("API_URL", "http://api:8001/api")
 
 
+@login_required_session
 def lista_cursos(request):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
@@ -21,6 +23,7 @@ def lista_cursos(request):
     return render(request, "cursos/lista.html", {"cursos": cursos})
 
 
+@login_required_session
 def criar_curso(request):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
@@ -52,6 +55,7 @@ def criar_curso(request):
     return render(request, "cursos/form.html")
 
 
+@login_required_session
 def editar_curso(request, curso_id):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}
@@ -91,6 +95,7 @@ def editar_curso(request, curso_id):
     return render(request, "cursos/form.html", {"curso": curso})
 
 
+@login_required_session
 def deletar_curso(request, curso_id):
     access_token = request.session.get("access")
     headers = {"Authorization": f"Bearer {access_token}"} if access_token else {}

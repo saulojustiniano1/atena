@@ -36,11 +36,10 @@ def logout_view(request):
 
 
 def dashboard_view(request):
-    # Checa se o usuário está autenticado
     access = request.session.get("access")
     if not access:
         messages.warning(request, "Você precisa estar logado para acessar o dashboard.")
-        return redirect("login")  # redireciona para /login
+        return redirect("login")
 
     headers = {"Authorization": f"Bearer {access}"}
 
