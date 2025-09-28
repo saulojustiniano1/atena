@@ -43,4 +43,8 @@ docker compose up --build -d
 **3. Endpoints**
 
 - **API**: http://localhost:8001/api
+- **Swagger**: http://localhost:8001/swagger/
 - **Frontend**: http://localhost:8000/
+- **/perfis**: http://localhost:8000/perfis
+- **/cursos**: http://localhost:8000/cursos
+- **/disciplinas**: http://localhost:8000/disciplinas
