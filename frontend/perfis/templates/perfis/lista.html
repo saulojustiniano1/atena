@@ -9,6 +9,7 @@
     <tr>
       <th>ID</th>
       <th>Nome</th>
+      <th>Email</th>
       <th>Tipo</th>
       <th>Status</th>
       <th>Ações</th>
@@ -19,6 +20,7 @@
     <tr>
       <td>{{ p.id }}</td>
       <td>{{ p.nome }}</td>
+      <td>{{ p.email }}</td>
       <td>{{ p.tipo }}</td>
       <td>{% if p.ativo %}Ativo{% else %}Inativo{% endif %}</td>
       <td>
