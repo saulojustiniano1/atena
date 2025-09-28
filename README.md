@@ -33,7 +33,7 @@ cd atena
 cd api/frontend
 cp .env.example .env
 cd ..
-docker compose up --build
+docker compose up --build -d
 ```
 
 **2. Outras Informações**
@@ -42,5 +42,5 @@ docker compose up --build
 
 **3. Endpoints**
 
-- API: http://localhost:8001/api
-- Frontend: http://localhost:8000/
+- **API**: http://localhost:8001/api
+- **Frontend**: http://localhost:8000/
