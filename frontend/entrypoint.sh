@@ -3,8 +3,5 @@
 echo "Rodando migrations..."
 python manage.py migrate --noinput
 
-echo "Criando superusuÃ¡rio..."
-python create_superuser.py
-
 echo "Iniciando o servidor..."
 exec "$@"
