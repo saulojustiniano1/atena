@@ -18,10 +18,29 @@
   </a>
 </div>
 
-<!-- <div align="center">
-  <img src=".github/preview.png" width="100%"/>
-</div> -->
+---
 
-# Sobre o Projeto
+ATENA é uma aplicação web para gerenciamento de **Cursos, Disciplinas e Perfis de Usuários**, construída com **Django REST Framework** no backend e frontend em **Django Templates/Bootstrap**.  
+O projeto utiliza **Docker** para facilitar o setup de ambiente com containers isolados para **API, banco de dados e frontend**.
 
-Representa um sistema acadêmico que organiza cursos e disciplinas de forma clara, confiável e inteligente.
+### Configuração
+
+**1. Clone o repositório:**
+
+```bash
+git clone <REPO_URL>
+cd atena
+cd api/frontend
+cp .env.example .env
+cd ..
+docker compose up --build
+```
+
+**2. Outras Informações**
+
+**As migrações e a criação do superuser (na API)** já foram criados direto no Dockerfile com um script shell
+
+**3. Endpoints**
+
+- API: http://localhost:8001/api
+- Frontend: http://localhost:8000/
