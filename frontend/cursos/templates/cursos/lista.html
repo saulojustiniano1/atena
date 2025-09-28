@@ -1,0 +1,32 @@
+{% extends "core/base.html" %} 
+{% block title %}Cursos{% endblock %} 
+{% block content %}
+<h2>Cursos</h2>
+<a href="{% url 'cursos_novo' %}" class="btn btn-primary mb-3">Novo Curso</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Status</th>
+      <th>Carga Horaria Total</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in cursos %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.nome }}</td>
+      <td>{% if p.ativo %}Ativo{% else %}Inativo{% endif %}</td>
+      <td>{{ p.carga_horaria_total }}</td>
+      <td>
+        <a href="{% url 'curso_editar' p.id %}" class="btn btn-sm btn-warning">
+          Editar
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
