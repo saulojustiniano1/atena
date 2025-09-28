@@ -13,20 +13,41 @@ services:
     networks:
       - atena_net
 
-  # web:
+  # api:
   #   build:
   #     context: .
-  #     dockerfile: Dockerfile
-  #   container_name: atena_web
-  #   command: gunicorn setup.wsgi:application --bind 0.0.0.0:8334
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - '8334:8334'
+  #     dockerfile: docker/api/Dockerfile
+  #   container_name: atena_api
   #   env_file:
   #     - .env
+  #   volumes:
+  #     - ./api:/app
+  #   ports:
+  #     - '8001:8000'
   #   depends_on:
   #     - db
+  #   networks:
+  #     - atena_net
+  #   environment:
+  #     DATABASE_HOST: db
+  #     DATABASE_NAME: atena_db
+  #     DATABASE_USER: postgres
+  #     DATABASE_PASSWORD: admin
+  #     DATABASE_PORT: 5435
+
+  # frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/frontend/Dockerfile
+  #   container_name: atena_frontend
+  #   env_file:
+  #     - .env.frontend
+  #   volumes:
+  #     - ./frontend:/app
+  #   ports:
+  #     - '8000:8000'
+  #   depends_on:
+  #     - api
   #   networks:
   #     - atena_net
 
